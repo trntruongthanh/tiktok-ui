@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind'; // npm i classnames
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleXmark, faSpinner, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { faCircleXmark, faSpinner, faMagnifyingGlass, faSign, faSignIn } from '@fortawesome/free-solid-svg-icons';
 
 import styles from './Header.module.scss';
 import images from '~/assets/images';
@@ -13,6 +13,7 @@ import { Wrapper as PopperWrapper } from '~/components/Popper';
 
 import { useEffect, useState } from 'react';
 import AccountItem from '~/components/AccountItem';
+import Button from '~/components/Button';
 
 const cx = classNames.bind(styles); // để có thể sử dụng className={cx('post-item)}
 
@@ -34,10 +35,9 @@ function Header() {
           interactive={true}
           visible={searchResult.length > 0}
           render={(attrs) => (
-            
             <div className={cx('search-result')} tabIndex="-1" {...attrs}>
               <PopperWrapper>
-                <h4 className={cx("search-title")}>Accounts</h4>
+                <h4 className={cx('search-title')}>Accounts</h4>
 
                 <AccountItem />
                 <AccountItem />
@@ -61,7 +61,10 @@ function Header() {
           </div>
         </Tippy>
 
-        <div className={cx('actions')}></div>
+        <div className={cx('actions')}>
+          <Button text>Upload</Button>
+          <Button primary>Log in</Button>
+        </div>
       </div>
     </header>
   );
