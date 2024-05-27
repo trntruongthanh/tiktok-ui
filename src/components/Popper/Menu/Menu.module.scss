@@ -1,0 +1,31 @@
+//menu wrapper
+.menu-list {
+  width: 224px;
+
+  .menu-item {
+    display: flex;
+    justify-content: flex-start;
+    margin-left: 0;
+  }
+}
+
+.menu-popper {
+  padding-bottom: 8px;
+}
+
+// Menu item
+.menu-item {
+  width: 100%;
+  padding: 11px 16px;
+  
+  border-radius: 0;
+  
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  -ms-border-radius: 0;
+  -o-border-radius: 0;
+  
+  &:hover {
+    background-color: var(--background-color);
+  }
+}

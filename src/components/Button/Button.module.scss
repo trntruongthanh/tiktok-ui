@@ -4,17 +4,18 @@
   justify-content: center;
 
   font-size: 1.6rem;
-  font-weight: 700;
+  font-weight: 600;
   min-width: 100px;
   padding: 9px 16px;
+  white-space: nowrap;
   background-color: var(--white);
-  border: 1px solid transparent;
+  color: var(--text-color);
   
   cursor: pointer;
-
-
-  border-radius: 4px;
   user-select: none;
+
+  border: 1px solid transparent;
+  border-radius: 4px;
 
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
@@ -36,8 +37,13 @@
   margin-left: 8px;
 }
 
-// Button types
+.icon {
+  display: inline-block;
+  text-align: center;
+  width: 26px;
+}
 
+// Button types
 .rounded {
   border-radius: 52px;
   border-color: var(--border-color);

@@ -1,9 +1,18 @@
 import classNames from 'classnames/bind'; // npm i classnames
+import styles from './Header.module.scss';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleXmark, faSpinner, faMagnifyingGlass, faSign, faSignIn } from '@fortawesome/free-solid-svg-icons';
+import {
+  faCircleXmark,
+  faSpinner,
+  faMagnifyingGlass,
+  faEllipsisVertical,
+  faEarthAfrica,
+  faKeyboard,
+} from '@fortawesome/free-solid-svg-icons';
 
-import styles from './Header.module.scss';
+import { faQuestionCircle } from '@fortawesome/free-regular-svg-icons';
+
 import images from '~/assets/images';
 
 import Tippy from '@tippyjs/react/headless';
@@ -14,8 +23,25 @@ import { Wrapper as PopperWrapper } from '~/components/Popper';
 import { useEffect, useState } from 'react';
 import AccountItem from '~/components/AccountItem';
 import Button from '~/components/Button';
+import Menu from '~/components/Popper/Menu';
 
 const cx = classNames.bind(styles); // để có thể sử dụng className={cx('post-item)}
+
+const MENU_ITEMS = [
+  {
+    icon: <FontAwesomeIcon icon={faEarthAfrica} />,
+    title: 'English',
+  },
+  {
+    icon: <FontAwesomeIcon icon={faQuestionCircle} />,
+    title: 'Feedback and help',
+    to: '/feedback',
+  },
+  {
+    icon: <FontAwesomeIcon icon={faKeyboard} />,
+    title: 'Keyboard Shortcuts',
+  },
+];
 
 function Header() {
   const [searchResult, setSearchResult] = useState([]);
@@ -64,6 +90,12 @@ function Header() {
         <div className={cx('actions')}>
           <Button text>Upload</Button>
           <Button primary>Log in</Button>
+
+          <Menu items={MENU_ITEMS}>
+            <button className={cx('more-btn')}>
+              <FontAwesomeIcon icon={faEllipsisVertical} />
+            </button>
+          </Menu>
         </div>
       </div>
     </header>
