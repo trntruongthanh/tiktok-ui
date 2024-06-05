@@ -1,22 +1,21 @@
+import React from 'react';
 import classNames from 'classnames/bind'; // npm i classnames
 import styles from './Header.module.scss';
-import React from 'react';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faCircleXmark,
-  faSpinner,
-  faMagnifyingGlass,
-  faEllipsisVertical,
-  faEarthAfrica,
-  faKeyboard,
-  faCloudArrowUp,
-  faRightFromBracket,
-  faGear,
   faCoins,
+  faEarthAfrica,
+  faEllipsisVertical,
+  faGear,
+  faKeyboard,
+  faMagnifyingGlass,
+  faRightFromBracket,
+  faSpinner,
 } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { faMessage, faQuestionCircle, faUser } from '@fortawesome/free-regular-svg-icons';
+import { faQuestionCircle, faUser } from '@fortawesome/free-regular-svg-icons';
 
 import images from '~/assets/images';
 
@@ -30,6 +29,9 @@ import { useEffect, useState } from 'react';
 import AccountItem from '~/components/AccountItem';
 import Button from '~/components/Button';
 import Menu from '~/components/Popper/Menu';
+
+import { InboxIcon, MessageIcon, UploadIcon } from '~/components/Icons';
+import Image from '~/components/Image';
 
 const cx = classNames.bind(styles); // để có thể sử dụng className={cx('post-item)}
 
@@ -100,8 +102,7 @@ function Header() {
       to: '/logout',
       separate: true,
     },
-  ]
-
+  ];
 
   return (
     <header className={cx('wrapper')}>
@@ -141,15 +142,24 @@ function Header() {
         <div className={cx('actions')}>
           {currentUser ? (
             <React.Fragment>
-              <Tippy delay={[0, 200]} content="Upload video" placement="bottom">
+              <Tippy delay={[0, 50]} content="Upload video" placement="bottom">
                 <button className={cx('action-btn')}>
-                  <FontAwesomeIcon icon={faCloudArrowUp} />
+                  <UploadIcon />
                 </button>
               </Tippy>
 
-              <button className={cx('action-btn')}>
-                <FontAwesomeIcon icon={faMessage} />
-              </button>
+              <Tippy delay={[0, 50]} content="Message" placement="bottom">
+                <button className={cx('action-btn')}>
+                  <MessageIcon />
+                </button>
+              </Tippy>
+
+              <Tippy delay={[0, 50]} content="Inbox" placement="bottom">
+                <button className={cx('action-btn')}>
+                  <InboxIcon />
+                  <span className={cx('badge')}>12</span>
+                </button>
+              </Tippy>
             </React.Fragment>
           ) : (
             <React.Fragment>
@@ -160,10 +170,11 @@ function Header() {
 
           <Menu items={currentUser ? userMenu : MENU_ITEMS} onChange={handleMenuChange}>
             {currentUser ? (
-              <img
+              <Image
                 className={cx('user-avatar')}
                 src="https://p16-sign-useast2a.tiktokcdn.com/tos-useast2a-avt-0068-giso/7125441198252097562~c5_100x100.jpeg?lk3s=a5d48078&nonce=12065&refresh_token=ae5e4199385d0f2f8a8657cd3ef41c71&x-expires=1717657200&x-signature=uuTsGp3Hu2sGRjFYyA%2FS1kKRFuU%3D&shp=a5d48078&shcp=81f88b70"
                 alt="Thanh Tran"
+                fallback="https://scontent.fsgn5-5.fna.fbcdn.net/v/t39.30808-1/431394258_3774252906121098_3498279554662118017_n.jpg?stp=dst-jpg_p200x200&_nc_cat=108&ccb=1-7&_nc_sid=5f2048&_nc_ohc=sWpUjjEEk8wQ7kNvgEItzLX&_nc_ht=scontent.fsgn5-5.fna&oh=00_AYAXJzloZm_DJ6iAl598T4uaBqKmdN16pGDFwGKOmQ_U6g&oe=66663353"
               />
             ) : (
               <button className={cx('more-btn')}>

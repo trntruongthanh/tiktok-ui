@@ -19,7 +19,7 @@ function Menu({ children, items = [], onChange = defaultFn }) {
 
   const renderItems = () => {
     return current.data.map((item, index) => {
-      const isParent = !!item.children;
+      const isParent = !!item.children;       // chuyển đổi một giá trị thành giá trị boolean 2 lan.
 
       return (
         <MenuItem
