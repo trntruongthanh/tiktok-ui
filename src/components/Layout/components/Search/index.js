@@ -15,6 +15,8 @@ import { Wrapper as PopperWrapper } from '~/components/Popper';
 import { SearchIcon } from '~/components/Icons';
 import { useDebounce } from '~/hooks';
 
+import * as searchService from '~/apiService/searchService';
+
 const cx = classNames.bind(styles);
 
 function Search() {
@@ -29,26 +31,27 @@ function Search() {
   const inputRef = useRef();
 
   useEffect(() => {
+
     if (!debounced.trim()) {
       setSearchResult([]);
       return;
     }
 
-    setLoading(true);
+    const fetchApi = async () => {
+      setLoading(true);
 
-    fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(debounced)}&type=less`)
-      .then((res) => res.json())
-      .then((res) => {
-        setSearchResult(res.data);
-        setLoading(false);
-      })
-      .catch(() => {
-        setLoading(false);
-      });
+      const result = await searchService.search(debounced);
+      setSearchResult(result);
+
+      setLoading(false);
+    };
+
+    fetchApi();
 
   }, [debounced]);
 
   const handleClear = () => {
+    
     setSearchValue('');
     setSearchResult([]);
     inputRef.current.focus();
