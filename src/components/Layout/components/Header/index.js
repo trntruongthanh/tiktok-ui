@@ -130,9 +130,8 @@ function Header() {
             {currentUser ? (
               <Image
                 className={cx('user-avatar')}
-                src="https://p16-sign-useast2a.tiktokcdn.com/tos-useast2a-avt-0068-giso/7125441198252097562~c5_100x100.jpeg?lk3s=a5d48078&nonce=12065&refresh_token=ae5e4199385d0f2f8a8657cd3ef41c71&x-expires=1717657200&x-signature=uuTsGp3Hu2sGRjFYyA%2FS1kKRFuU%3D&shp=a5d48078&shcp=81f88b70"
+                src="https://p16-sign-useast2a.tiktokcdn.com/tos-useast2a-avt-0068-giso/7125441198252097562~c5_100x100.jpeg?lk3s=a5d48078&nonce=20264&refresh_token=57280c9235922f7f8e6c0f955e84af1b&x-expires=1718326800&x-signature=edlNkdARwIQOIYW9J4h85OAWGeU%3D&shp=a5d48078&shcp=81f88b70"
                 alt="Thanh Tran"
-                fallback="https://scontent.fsgn5-5.fna.fbcdn.net/v/t39.30808-1/431394258_3774252906121098_3498279554662118017_n.jpg?stp=dst-jpg_p200x200&_nc_cat=108&ccb=1-7&_nc_sid=5f2048&_nc_ohc=sWpUjjEEk8wQ7kNvgEItzLX&_nc_ht=scontent.fsgn5-5.fna&oh=00_AYAXJzloZm_DJ6iAl598T4uaBqKmdN16pGDFwGKOmQ_U6g&oe=66663353"
               />
             ) : (
               <button className={cx('more-btn')}>
