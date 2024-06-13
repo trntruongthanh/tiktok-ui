@@ -7,19 +7,20 @@ import Header from './Header';
 
 import { Wrapper as PopperWrapper } from '~/components/Popper';
 import { useState } from 'react';
+import { faL } from '@fortawesome/free-solid-svg-icons';
 
 const cx = classNames.bind(styles);
 
 const defaultFn = () => {};
 
-function Menu({ children, items = [], onChange = defaultFn }) {
+function Menu({ children, items = [], hideOnClick = false, onChange = defaultFn }) {
   const [history, setHistory] = useState([{ data: items }]);
 
   const current = history[history.length - 1];
 
   const renderItems = () => {
     return current.data.map((item, index) => {
-      const isParent = !!item.children;       // chuyển đổi một giá trị thành giá trị boolean 2 lan.
+      const isParent = !!item.children; // chuyển đổi một giá trị thành giá trị boolean 2 lan.
 
       return (
         <MenuItem
@@ -41,6 +42,7 @@ function Menu({ children, items = [], onChange = defaultFn }) {
     <Tippy
       delay={[0, 600]}
       interactive
+      hideOnClick={hideOnClick}
       placement="bottom-end"
       offset={[14, 10]}
       render={(attrs) => (
@@ -58,7 +60,7 @@ function Menu({ children, items = [], onChange = defaultFn }) {
           </PopperWrapper>
         </div>
       )}
-      onHide={() => setHistory(prev => prev.slice(0, 1))}
+      onHide={() => setHistory((prev) => prev.slice(0, 1))}
     >
       {children}
     </Tippy>

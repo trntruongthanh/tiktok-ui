@@ -14,6 +14,10 @@
   --default-layout-header-height: 60px;
   --default-layout-width: 1912px;
   --default-layout-horizontal-spacer: 24px;
+
+
+  // font 
+  --font-family: TikTokFont, Arial, Tahoma, PingFangSC, sans-serif;
 }
 
 html {
@@ -27,7 +31,7 @@ html {
 }
 
 body {
-  font-family: TikTokFont, Arial, Tahoma, PingFangSC, sans-serif;
+  font-family: var(--font-family);
 
   font-size: 1.6rem;
   line-height: 1.5;
