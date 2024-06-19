@@ -1,5 +1,6 @@
 import classNames from 'classnames/bind';
 import styles from './AccountItem.module.scss';
+import PropTypes from 'prop-types';
 
 import Image from '~/components/Image';
 
@@ -23,6 +24,10 @@ function AccountItem({ data }) {
       </div>
     </Link>
   );
+}
+
+AccountItem.propTypes = {
+  data: PropTypes.object
 }
 
 export default AccountItem;
