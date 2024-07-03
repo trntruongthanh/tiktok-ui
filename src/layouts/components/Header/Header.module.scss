@@ -22,17 +22,15 @@
 .inner {
   height: 100%;
   width: var(--default-layout-width);
-  padding: 0 var(--default-layout-horizontal-spacer);
+  padding: 0 var(--default-layout-horizontal-spacer) 0 16px;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-
 .logo-link {
   display: flex;
 }
-
 
 // Action
 .actions {

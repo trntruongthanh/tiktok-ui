@@ -1,5 +1,28 @@
 .wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  box-sizing: border-box;
   width: 356px;
-  padding: 20px 0 26px 8px;
-  margin-left: -12px;
+  padding: 20px 0px 26px 8px;
+}
+
+.user-avatar {
+  width: 24px;
+  height: 24px;
+  object-fit: cover;
+  border-radius: 50%;
+  cursor: pointer;
+
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+}
+
+.icon-user-group {
+  width: 32px;
+  height: 32px;
+  font-size: 24px;
+  padding: 4px;
 }

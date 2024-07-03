@@ -1,8 +1,11 @@
 .menu-item {
   display: flex;
   align-items: center;
+  justify-content: flex-start;
+
   font-size: 1.8rem;
   font-weight: 700;
+  box-sizing: border-box;
   color: var(--black);
   padding: 8px;
 
@@ -18,7 +21,7 @@
   -ms-transition: background-color ease-in-out 200ms;
   -o-transition: background-color ease-in-out 200ms;
 
-  &.active { 
+  &.active {
     color: var(--primary);
 
     // .icon {
@@ -39,6 +42,6 @@
   margin-left: 10px;
 }
 
-// .active-icon { 
+// .active-icon {
 //   display: none;
 // }
