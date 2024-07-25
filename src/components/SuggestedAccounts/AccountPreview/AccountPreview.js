@@ -6,32 +6,34 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 
 import Button from '~/components/Button';
+import Image from '~/components/Image';
 
 const cx = classNames.bind(styles);
 
-function AccountPreview() {
+function AccountPreview({ data }) {
+
   return (
     <div className={cx('wrapper')}>
       <div className={cx('header')}>
-        <img
+        <Image
           className={cx('avatar')}
-          src="https://p16-sign-useast2a.tiktokcdn.com/tos-useast2a-avt-0068-giso/7125441198252097562~c5_100x100.jpeg?lk3s=a5d48078&nonce=37366&refresh_token=7f9f72aac9b5cbbff9c77eb25653abdf&x-expires=1720098000&x-signature=XKd7UoHDe4EieLahZFXeiqE7Ro4%3D&shp=a5d48078&shcp=81f88b70"
-          alt=""
+          src={data.avatar}
+          alt={data.nickname}
         />
         <Button className={cx('follow-btn')} primary>Follow</Button>
       </div>
 
       <div className={cx('body')}>
         <p className={cx('nickname')}>
-          <strong>trntruongthanh</strong>
-          <FontAwesomeIcon className={cx('check')} icon={faCheckCircle} />
+          <strong>{data.nickname}</strong>
+          {data.tick && <FontAwesomeIcon className={cx('check')} icon={faCheckCircle} />}
         </p>
-        <p className={cx('name')}>Tran Truong Thanh</p>
+        <p className={cx('name')}>{`${data.first_name} ${data.last_name}`}</p>
         <p className={cx('analytics')}>
-          <strong className={cx('value')}>8.2M </strong>
+          <strong className={cx('value')}>{data.followers_count} </strong>
           <span className={cx('label')}>Followers</span>
 
-          <strong className={cx('value')}>8.2M </strong>
+          <strong className={cx('value')}>{data.likes_count} </strong>
           <span className={cx('label')}>Likes</span>
         </p>
       </div>
@@ -40,6 +42,8 @@ function AccountPreview() {
   );
 }
 
-AccountPreview.propTypes = {};
+AccountPreview.propTypes = {
+  data: PropTypes.object.isRequired,
+};
 
 export default AccountPreview;

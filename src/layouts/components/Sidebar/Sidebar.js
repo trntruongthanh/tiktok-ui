@@ -13,16 +13,64 @@ import {
   ExploreActiveIcon,
   FriendIcon,
   FriendActiveIcon,
+  footerIcon,
 } from '~/components/Icons';
 
 import config from '~/config';
+import * as suggestService from '~/services/suggestService';
+
 import Menu, { MenuItem } from './Menu';
 import Image from '~/components/Image';
 import SuggestedAccounts from '~/components/SuggestedAccounts';
+import { useEffect, useState } from 'react';
+import LoginTip from '~/components/LoginTip';
+import Footer from '~/components/Footer';
 
 const cx = classNames.bind(styles);
 
+const INIT_PAGE = 1;
+const PER_PAGE = 5;
+const MAX_PAGE = 10;
+
 function Sidebar() {
+  const [suggestedUsers, setSuggestedUsers] = useState([]);
+
+  const [page, setPage] = useState(INIT_PAGE);
+  const [seeAll, setSeeAll] = useState(false);
+
+  const [footer, setFooter] = useState(false);
+
+  useEffect(() => {
+    const fetchApi = async () => {
+      try {
+        const result = await suggestService.suggest(page, PER_PAGE);
+        setSuggestedUsers((prevUsers) => [...prevUsers, ...result]);
+      } catch (error) {
+        console.error('Failed to fetch suggested users', error);
+      }
+
+      if (page * PER_PAGE >= MAX_PAGE) {
+        setSeeAll(true);
+      }
+    };
+
+    fetchApi();
+  }, [page]);
+
+  const handleSeeAll = () => {
+    if (suggestedUsers.length >= MAX_PAGE) {
+      setSeeAll((prevShowAll) => !prevShowAll);
+
+      setSuggestedUsers((prevUsers) => [...prevUsers.slice(0, PER_PAGE)]);
+    } else {
+      setPage((prevPage) => prevPage + 1);
+    }
+  };
+
+  // useEffect(() => {
+  //   console.log('seeAll:', seeAll); // Debugging line
+  // }, [seeAll]);
+
   return (
     <aside className={cx('wrapper')}>
       <Menu>
@@ -42,7 +90,7 @@ function Sidebar() {
           activeIcon={<UserGroupActiveIcon className={cx('icon-user-group')} />}
         />
 
-        <MenuItem title="Friends" to={config.routes.friends} icon={<FriendIcon />} activeIcon={<FriendActiveIcon />} />
+        {/* <MenuItem title="Friends" to={config.routes.friends} icon={<FriendIcon />} activeIcon={<FriendActiveIcon />} /> */}
 
         <MenuItem title="LIVE" to={config.routes.live} icon={<LiveIcon />} activeIcon={<LiveActiveIcon />} />
 
@@ -60,9 +108,12 @@ function Sidebar() {
         />
       </Menu>
 
-      <SuggestedAccounts label="Suggested accounts" />
+      <SuggestedAccounts label="Suggested accounts" data={suggestedUsers} onClick={handleSeeAll} seeAll={seeAll} />
+
+      <LoginTip />
+
+      <Footer />
       
-      {/* <SuggestedAccounts label="Following accounts" /> */}
     </aside>
   );
 }

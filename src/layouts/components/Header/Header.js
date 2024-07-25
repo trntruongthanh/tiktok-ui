@@ -1,5 +1,5 @@
-import React from 'react';
 import classNames from 'classnames/bind'; // npm i classnames
+import React from 'react';
 import styles from './Header.module.scss';
 
 import { Link } from 'react-router-dom';
@@ -7,16 +7,14 @@ import config from '~/config';
 
 import {
   faCoins,
-  faEarthAfrica,
   faEllipsisVertical,
   faGear,
-  faKeyboard,
-  faRightFromBracket,
+  faRightFromBracket
 } from '@fortawesome/free-solid-svg-icons';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { faQuestionCircle, faUser } from '@fortawesome/free-regular-svg-icons';
+import { faUser } from '@fortawesome/free-regular-svg-icons';
 
 import images from '~/assets/images';
 
@@ -26,7 +24,7 @@ import 'tippy.js/dist/tippy.css';
 import Button from '~/components/Button';
 import Menu from '~/components/Popper/Menu';
 
-import { InboxIcon, MessageIcon, UploadIcon } from '~/components/Icons';
+import { CreatorIcon, DarkModeIcon, EnglishIcon, FeedBackIcon, InboxIcon, MessageIcon, UploadIcon } from '~/components/Icons';
 import Image from '~/components/Image';
 import Search from '../Search';
 
@@ -34,7 +32,11 @@ const cx = classNames.bind(styles); // để có thể sử dụng className={cx
 
 const MENU_ITEMS = [
   {
-    icon: <FontAwesomeIcon icon={faEarthAfrica} />,
+    icon: <CreatorIcon />,
+    title: 'Creator tools',
+  },
+  {
+    icon: <EnglishIcon />,
     title: 'English',
     children: {
       title: 'Language',
@@ -51,18 +53,18 @@ const MENU_ITEMS = [
     },
   },
   {
-    icon: <FontAwesomeIcon icon={faQuestionCircle} />,
+    icon: <FeedBackIcon />,
     title: 'Feedback and help',
     to: '/feedback',
   },
   {
-    icon: <FontAwesomeIcon icon={faKeyboard} />,
-    title: 'Keyboard shortcuts',
+    icon: <DarkModeIcon />,
+    title: 'Dark mode',
   },
 ];
 
 function Header() {
-  const currentUser = true;
+  const currentUser = false;
 
   const handleMenuChange = (MenuItem) => {
     // console.log(MenuItem);

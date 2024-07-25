@@ -1,0 +1,62 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.header {
+  font-size: 3.3rem;
+  margin: 50px 0 16px;
+}
+
+.content {
+  margin-left: 0;
+  height: 368px;
+  padding: 14px 5px 2px 14px;
+  overflow-y: scroll;
+}
+
+.menu-item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  height: 44px;
+  width: 338px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+}
+
+.policy-confirm-tips {
+  font-size: 1.2rem;
+  width: 397px;
+  text-align: center;
+  color: rgba(22, 24, 35, 0.5);
+  padding: 14px 30px;
+  margin-top: 6px;
+  word-wrap: wrap;
+}
+
+.text-link {
+  color: rgb(22, 24, 35);
+}
+
+.bottom-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: rgb(22, 24, 35);
+  font-size: 1.5rem;
+  width: 100%;
+  padding: 14px;
+
+  border-top: 1px solid #E2E3E4;
+}
+
+.bottom-sign-up {
+  color: var(--primary);
+  font-weight: 600;
+  margin-left: 5px;
+}

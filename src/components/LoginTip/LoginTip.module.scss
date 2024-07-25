@@ -1,0 +1,21 @@
+.login-tip {
+  position: relative;
+  color: rgba(22, 24, 35, 0.5);
+  padding: 20px 8px 24px;
+}
+
+.login-tip::before {
+  content: '';
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  top: 0px;
+  height: 1px;
+  background: rgba(22, 24, 35, 0.12);
+  transform: scaleY(0.5);
+}
+
+.login-btn {
+  width: 100%;
+  margin-top: 20px;
+}
