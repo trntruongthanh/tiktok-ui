@@ -32,7 +32,7 @@ const INIT_PAGE = 1;
 const PER_PAGE = 5;
 const MAX_PAGE = 10;
 
-function Sidebar() {
+function Sidebar({ onClick }) {
   const [suggestedUsers, setSuggestedUsers] = useState([]);
 
   const [page, setPage] = useState(INIT_PAGE);
@@ -99,18 +99,21 @@ function Sidebar() {
           to={config.routes.profile}
           icon={<ProfileIcon />}
           activeIcon={
-            <Image
-              className={cx('user-avatar')}
-              alt="Thanh Tran"
-              src="https://p16-sign-useast2a.tiktokcdn.com/tos-useast2a-avt-0068-giso/7125441198252097562~c5_100x100.jpeg?lk3s=a5d48078&nonce=16195&refresh_token=58587620c427894c6f42c10304446972&x-expires=1719550800&x-signature=%2BFNKmFfQAKTytWLw6hRqstJHUTA%3D&shp=a5d48078&shcp=81f88b70"
-            />
+
+            <ProfileIcon />
+            // <Image
+            //   className={cx('user-avatar')}
+            //   alt="Thanh Tran"
+            //   src="https://p16-sign-useast2a.tiktokcdn.com/tos-useast2a-avt-0068-giso/7125441198252097562~c5_100x100.jpeg?lk3s=a5d48078&nonce=16195&refresh_token=58587620c427894c6f42c10304446972&x-expires=1719550800&x-signature=%2BFNKmFfQAKTytWLw6hRqstJHUTA%3D&shp=a5d48078&shcp=81f88b70"
+            // />
           }
+          onClick={onClick}
         />
       </Menu>
 
       <SuggestedAccounts label="Suggested accounts" data={suggestedUsers} onClick={handleSeeAll} seeAll={seeAll} />
 
-      <LoginTip />
+      <LoginTip onClick={onClick} />
 
       <Footer />
       

@@ -7,23 +7,14 @@ import LoginItem from '../../LoginItem';
 
 const cx = classNames.bind(styles);
 
-function LoginDefault({ data = [] }) {
-  console.log(data);
-
-  const [history, setHistory] = useState([data]);
-  const [currentData, setCurrentData] = useState(data);
-
-  useEffect(() => {
-    // Update currentData when history changes
-    setCurrentData(history[history.length - 1]);
-  }, [history]);
+function LoginDefault({ data = [], onClick, onItemClick }) {
 
   return (
     <div className={cx('wrapper')}>
       <h2 className={cx('header')}>{data.title}</h2>
       <div className={cx('content')}>
-        {currentData.data.map((item, index) => (
-          <LoginItem key={index} data={item} />
+        {data.data.map((item, index) => (
+          <LoginItem onClick={onItemClick} key={index} data={item} />
         ))}
       </div>
 
@@ -47,17 +38,28 @@ function LoginDefault({ data = [] }) {
       </div>
 
       <footer className={cx('bottom-text')}>
-        Don't have an account?
-        <a href="/" className={cx('bottom-sign-up')}>
+        {data.footer.title}
+        <a
+          onClick={(e) => {
+            e.preventDefault();
+            onClick();
+          }}
+          href="/"
+          className={cx('bottom-sign-up')}
+        >
           {' '}
-          Sign up{' '}
+          {data.footer.linkText}{' '}
         </a>
       </footer>
-
+      
     </div>
   );
 }
 
-LoginDefault.propTypes = {};
+LoginDefault.propTypes = {
+  data: PropTypes.object.isRequired,
+  onClick: PropTypes.func,
+  onItemClick: PropTypes.func,
+};
 
 export default LoginDefault;

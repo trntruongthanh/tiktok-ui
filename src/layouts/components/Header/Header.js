@@ -5,12 +5,7 @@ import styles from './Header.module.scss';
 import { Link } from 'react-router-dom';
 import config from '~/config';
 
-import {
-  faCoins,
-  faEllipsisVertical,
-  faGear,
-  faRightFromBracket
-} from '@fortawesome/free-solid-svg-icons';
+import { faCoins, faEllipsisVertical, faGear, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -24,7 +19,15 @@ import 'tippy.js/dist/tippy.css';
 import Button from '~/components/Button';
 import Menu from '~/components/Popper/Menu';
 
-import { CreatorIcon, DarkModeIcon, EnglishIcon, FeedBackIcon, InboxIcon, MessageIcon, UploadIcon } from '~/components/Icons';
+import {
+  CreatorIcon,
+  DarkModeIcon,
+  EnglishIcon,
+  FeedBackIcon,
+  InboxIcon,
+  MessageIcon,
+  UploadIcon,
+} from '~/components/Icons';
 import Image from '~/components/Image';
 import Search from '../Search';
 
@@ -63,7 +66,7 @@ const MENU_ITEMS = [
   },
 ];
 
-function Header() {
+function Header({ onClick }) {
   const currentUser = false;
 
   const handleMenuChange = (MenuItem) => {
@@ -128,8 +131,12 @@ function Header() {
             </React.Fragment>
           ) : (
             <React.Fragment>
-              <Button text>Upload</Button>
-              <Button primary>Log in</Button>
+              <Button text onClick={onClick}>
+                Upload
+              </Button>
+              <Button primary onClick={onClick}>
+                Log in
+              </Button>
             </React.Fragment>
           )}
 

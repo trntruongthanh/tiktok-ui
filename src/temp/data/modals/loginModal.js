@@ -45,14 +45,19 @@ const loginModalData = {
       icon: <AppleIcon />,
     },
   ],
+  footer: {
+    title: "Don't have an account?",
+    linkText: 'Sign up',
+  },
 };
 
 const signupModalData = {
   title: 'Sign up for TikTok',
   data: [
     {
-      title: 'Use phone / email / username',
+      title: 'Use phone or email',
       icon: <UserIcon />,
+      type: 'use-phone-email-username',
     },
     {
       title: 'Continue with Facebook',
@@ -71,6 +76,10 @@ const signupModalData = {
       icon: <KakaoTalkIcon />,
     },
   ],
+  footer: {
+    title: 'Already have an account?',
+    linkText: 'Log in',
+  },
 };
 
 export { loginModalData, signupModalData };

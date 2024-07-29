@@ -354,8 +354,7 @@ export const FooterIcon = ({ width = '2.4rem', height = '2.4rem', className }) =
 );
 
 // close login form
-
-export const CloseLoginIcon = ({ width = '2.5rem', height = '2.5rem', className, onClick}) => (
+export const CloseLoginIcon = ({ width = '2.5rem', height = '2.5rem', className, onClick }) => (
   <svg
     className={className}
     width={width}
@@ -369,6 +368,25 @@ export const CloseLoginIcon = ({ width = '2.5rem', height = '2.5rem', className,
       fillRule="evenodd"
       clipRule="evenodd"
       d="M21.1718 23.9999L10.2931 13.1212C9.90261 12.7307 9.90261 12.0975 10.2931 11.707L11.7074 10.2928C12.0979 9.90228 12.731 9.90228 13.1216 10.2928L24.0002 21.1715L34.8789 10.2928C35.2694 9.90228 35.9026 9.90228 36.2931 10.2928L37.7073 11.707C38.0979 12.0975 38.0979 12.7307 37.7073 13.1212L26.8287 23.9999L37.7073 34.8786C38.0979 35.2691 38.0979 35.9023 37.7073 36.2928L36.2931 37.707C35.9026 38.0975 35.2694 38.0975 34.8789 37.707L24.0002 26.8283L13.1216 37.707C12.731 38.0975 12.0979 38.0975 11.7074 37.707L10.2931 36.2928C9.90261 35.9023 9.90261 35.2691 10.2931 34.8786L21.1718 23.9999Z"
+    ></path>
+  </svg>
+);
+
+// TriangleIcon phone number log in form
+export const TriangleIcon = ({ width = '1.4rem', height = '1.4rem', className, onClick }) => (
+  <svg
+    className={className}
+    width={width}
+    height={height}
+    data-e2e=""
+    viewBox="0 0 48 48"
+    fill="currentColor"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M25.5187 35.2284C24.7205 36.1596 23.2798 36.1596 22.4816 35.2284L8.83008 19.3016C7.71807 18.0042 8.63988 16 10.3486 16H37.6517C39.3604 16 40.2822 18.0042 39.1702 19.3016L25.5187 35.2284Z"
     ></path>
   </svg>
 );

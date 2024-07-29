@@ -6,21 +6,28 @@ import Header from '~/layouts/components/Header';
 import Sidebar from '~/layouts/components/Sidebar';
 
 import Auth from '~/components/Auth/Auth';
+import { useState } from 'react';
 
 const cx = classNames.bind(styles);
 
 function DefaultLayout({ children }) {
+  const [isClick, setIsClick] = useState(false);
+
+  const handleClick = () => {
+    setIsClick((prev) => !prev);
+  };
+
   return (
     <div className={cx('wrapper')}>
-      <Header />
+      <Header onClick={handleClick} />
 
       <div className={cx('container')}>
-        <Sidebar />
+        <Sidebar onClick={handleClick} />
 
         <div className={cx('content')}>{children}</div>
       </div>
 
-      <Auth />
+      {isClick && <Auth setIsClick={setIsClick} />}
     </div>
   );
 }

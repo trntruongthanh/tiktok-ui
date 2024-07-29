@@ -7,15 +7,21 @@ import Button from '../Button';
 
 const cx = classNames.bind(styles);
 
-function LoginItem({ data, className }) {
+function LoginItem({ data, className, onClick }) {
 
     const classes = cx('menu-item', className)
 
   return (
-    <Button className={classes} leftIcon={data.icon} large text >
+    <Button onClick={() => onClick(data.title)} className={classes} leftIcon={data.icon} large text >
       {data.title}
     </Button>
   );
+}
+
+LoginItem.propTypes = {
+  data: PropTypes.object.isRequired,
+  classes: PropTypes.string,
+  onClick: PropTypes.func,
 }
 
 export default LoginItem;

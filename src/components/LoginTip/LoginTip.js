@@ -5,15 +5,17 @@ import Button from '../Button';
 
 const cx = classNames.bind(styles);
 
-function LoginTip() {
+function LoginTip({ onClick }) {
   return (
     <div className={cx('login-tip')}>
       <p>Log in to follow creators, like videos, and view comments.</p>
-      <Button className={cx('login-btn')} outline large >Log In</Button>
+      <Button onClick={onClick} className={cx('login-btn')} outline large >Log In</Button>
     </div>
   );
 }
 
-LoginTip.propTypes = {};
+LoginTip.propTypes = {
+  onClick: PropTypes.func,
+};
 
 export default LoginTip;

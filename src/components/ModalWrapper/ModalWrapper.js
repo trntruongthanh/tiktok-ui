@@ -8,13 +8,12 @@ import { CloseLoginIcon } from '../Icons';
 
 const cx = classNames.bind(styles);
 
-function ModalWrapper({ children }) {
+function ModalWrapper({ children, setIsClick }) {
   const [closeLogin, setCloseLogin] = useState(true);
-
-  console.log(closeLogin);
 
   const handleCloseLogin = () => {
     setCloseLogin((prev) => !prev);
+    setIsClick(false);
   };
 
   return (
@@ -34,6 +33,9 @@ function ModalWrapper({ children }) {
   );
 }
 
-ModalWrapper.propTypes = {};
+ModalWrapper.propTypes = {
+  children: PropTypes.node.isRequired,
+  setIsClick: PropTypes.bool.isRequired,
+};
 
 export default ModalWrapper;

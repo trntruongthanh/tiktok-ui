@@ -195,14 +195,3 @@ export const AppleIcon = ({ width = '1.5rem', height = '1.5rem', className }) =>
     ></path>
   </svg>
 );
-
-// export const QRIcon = ({ width = '1.5rem', height = '1.5rem', className }) => (
-//   <canvas
-//   height="340"
-//   width="340"
-//   style="height: 170px; width: 170px; border-radius: 11px; background: rgb(255, 255, 255); padding: 12px;"
-// ></canvas>
-// );
-
-
-

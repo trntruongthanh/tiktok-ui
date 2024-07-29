@@ -5,9 +5,9 @@ import { NavLink } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
-function MenuItem({ title, to, icon, activeIcon }) {
+function MenuItem({ onClick, title, to, icon, activeIcon }) {
   return (
-    <NavLink className={(nav) => cx('menu-item', { active: nav.isActive })} to={to}>
+    <NavLink onClick={onClick} className={(nav) => cx('menu-item', { active: nav.isActive })} to={to}>
       {({ isActive }) => (
         <>
           {isActive ? activeIcon : icon}
