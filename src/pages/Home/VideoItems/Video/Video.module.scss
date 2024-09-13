@@ -1,0 +1,270 @@
+$primary-text-color: rgba(255, 255, 255, 0.9);
+
+.video-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: visible;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  margin-bottom: 24px;
+
+  &:first-of-type {
+    margin-top: 24px; // Add some top margin to the first video
+  }
+}
+
+.video-wrapper {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 177.92%; // This maintains a 9:16 aspect ratio (856 / 480 * 100)
+}
+
+.video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 16px;
+  cursor: pointer;
+}
+
+.media-card-bottom {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  bottom: 40px;
+  padding: 4px 12px;
+  transition: bottom 0.3s ease;
+
+  &-hover {
+    bottom: 70px;
+  }
+}
+
+.tag-container {
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 4px 6px;
+  border-radius: 4px;
+}
+
+.tag-content a {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+    color: #fff;
+  }
+}
+
+.tag-logo {
+  margin-right: 6px;
+}
+
+.tag-text {
+  color: $primary-text-color;
+  font-size: 12px;
+}
+
+.author-container {
+  margin: 8px 0;
+}
+
+.author-name,
+.description-link {
+  color: $primary-text-color;
+}
+
+.description-container {
+  color: $primary-text-color;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.music-container {
+  margin-top: 8px;
+}
+
+.music-title {
+  display: flex;
+  align-items: center;
+  margin: 0;
+}
+
+.media-card-music {
+  display: flex;
+  align-items: center;
+  margin-right: 6px;
+}
+
+.music-icon {
+  color: $primary-text-color;
+}
+
+.music-text {
+  font-size: 12px;
+  color: $primary-text-color;
+}
+
+.slider {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  bottom: 14px;
+  left: 20px;
+  line-height: 12px;
+  width: calc(100% - 40px);
+  padding: 8px;
+  min-width: 100px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+
+  &-visible {
+    opacity: 1;
+  }
+}
+
+.range {
+  width: 70%;
+  height: 2px;
+  min-width: 100px;
+  appearance: none;
+  background-color: rgba(255, 255, 255, 0.34);
+  border-radius: 10px;
+  cursor: pointer;
+
+  &::-webkit-slider-thumb {
+    width: 1px;
+    height: 20px;
+    background-color: #fff;
+    appearance: none;
+  }
+
+  &:hover {
+    height: 4px;
+  }
+}
+
+.action-icon {
+  background-color: transparent;
+  color: #fff;
+  min-width: 24px;
+  cursor: pointer;
+}
+
+.volume-container {
+  position: absolute;
+  bottom: 36px;
+  right: 9px;
+  width: 24px;
+  height: 64px;
+  background: rgba(22, 24, 35, 0.34);
+  border-radius: 32px;
+}
+
+.volume-range {
+  position: absolute;
+  height: 48px;
+  width: 2px;
+  top: 8px;
+  left: 11px;
+  right: 0;
+  appearance: none;
+  background-color: rgba(255, 255, 255, 0.34);
+
+  &::-webkit-slider-thumb {
+    width: 2px;
+    height: 4px;
+    background-color: #fff;
+    appearance: none;
+  }
+}
+
+// section action bar
+.section-action-bar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  max-width: 48px;
+  height: auto;
+
+  position: absolute;
+  right: -56px;
+  bottom: 18px;
+}
+
+.section-avatar-bar {
+  position: relative;
+  margin-bottom: 6px;
+}
+
+.avatar {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.icon-bar-avatar {
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  transform: translate(-50%, 50%);
+
+  box-sizing: border-box;
+  width: 24px;
+  height: 24px;
+  color: #fff;
+  background-color: var(--primary-color);
+
+  border-radius: 24px;
+  cursor: pointer;
+}
+
+.action-icon-bar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  background-color: transparent;
+}
+
+.action-icon-span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+
+  margin-top: 8px;
+  margin-bottom: 6px;
+
+  background-color: rgba(22, 24, 35, 0.06);
+}
+
+.icon-bar {
+  color: #000;
+}
+
+@media (max-width: 768px) {
+  .video-container {
+    max-width: 100%;
+  }
+
+  .section-action-bar {
+    right: 4px;
+  }
+}

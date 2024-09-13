@@ -1,0 +1,56 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+
+  width: 280px;
+  max-height: 448px;
+  line-height: 21px;
+  padding: 8px 0px;
+  font-size: 1.6rem;
+  font-weight: 600;
+  overflow: auto;
+}
+
+.share-preview {
+  display: flex;
+  align-items: center;
+  padding: 11px 16px;
+  margin: 0px 3px 0px 4px;
+
+  &:hover {
+    background: rgba(22, 24, 35, 0.03);
+    text-decoration: none;
+  }
+}
+
+.preview-icon {
+  display: inline-flex; // giúp phần tử xuất hiện trên cùng một dòng với các phần tử khác
+  align-items: center;
+  overflow: hidden;
+
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+}
+
+.preview-text {
+  margin-left: 12px;
+  color: rgba(22, 24, 35);
+}
+
+.more-share-option {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0px 16px;
+  margin: 0px 4px;
+  color: rgba(22, 24, 35);
+
+  cursor: pointer;
+
+  &:hover {
+    background: rgba(22, 24, 35, 0.03);
+  }
+}

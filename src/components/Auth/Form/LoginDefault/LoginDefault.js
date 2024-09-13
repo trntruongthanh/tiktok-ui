@@ -8,7 +8,6 @@ import LoginItem from '../../LoginItem';
 const cx = classNames.bind(styles);
 
 function LoginDefault({ data = [], onClick, onItemClick }) {
-
   return (
     <div className={cx('wrapper')}>
       <h2 className={cx('header')}>{data.title}</h2>
@@ -51,7 +50,6 @@ function LoginDefault({ data = [], onClick, onItemClick }) {
           {data.footer.linkText}{' '}
         </a>
       </footer>
-      
     </div>
   );
 }

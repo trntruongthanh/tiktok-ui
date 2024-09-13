@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from './Sidebar.module.scss';
 
@@ -13,22 +14,21 @@ import {
   ExploreActiveIcon,
   FriendIcon,
   FriendActiveIcon,
-  footerIcon,
 } from '~/components/Icons';
 
 import config from '~/config';
 import * as suggestService from '~/services/suggestService';
 
-import Menu, { MenuItem } from './Menu';
 import Image from '~/components/Image';
+
+import Menu, { MenuItem } from './Menu';
 import SuggestedAccounts from '~/components/SuggestedAccounts';
-import { useEffect, useState } from 'react';
 import LoginTip from '~/components/LoginTip';
 import Footer from '~/components/Footer';
 
 const cx = classNames.bind(styles);
 
-const INIT_PAGE = 1;
+const INIT_PAGE = 5;
 const PER_PAGE = 5;
 const MAX_PAGE = 10;
 
@@ -37,8 +37,6 @@ function Sidebar({ onClick }) {
 
   const [page, setPage] = useState(INIT_PAGE);
   const [seeAll, setSeeAll] = useState(false);
-
-  const [footer, setFooter] = useState(false);
 
   useEffect(() => {
     const fetchApi = async () => {
@@ -90,7 +88,7 @@ function Sidebar({ onClick }) {
           activeIcon={<UserGroupActiveIcon className={cx('icon-user-group')} />}
         />
 
-        {/* <MenuItem title="Friends" to={config.routes.friends} icon={<FriendIcon />} activeIcon={<FriendActiveIcon />} /> */}
+        <MenuItem title="Friends" to={config.routes.friends} icon={<FriendIcon />} activeIcon={<FriendActiveIcon />} />
 
         <MenuItem title="LIVE" to={config.routes.live} icon={<LiveIcon />} activeIcon={<LiveActiveIcon />} />
 
@@ -99,7 +97,6 @@ function Sidebar({ onClick }) {
           to={config.routes.profile}
           icon={<ProfileIcon />}
           activeIcon={
-
             <ProfileIcon />
             // <Image
             //   className={cx('user-avatar')}
@@ -111,12 +108,11 @@ function Sidebar({ onClick }) {
         />
       </Menu>
 
-      <SuggestedAccounts label="Suggested accounts" data={suggestedUsers} onClick={handleSeeAll} seeAll={seeAll} />
+      <SuggestedAccounts label="Suggested for you" data={suggestedUsers} onClick={handleSeeAll} seeAll={seeAll} />
 
       <LoginTip onClick={onClick} />
 
       <Footer />
-      
     </aside>
   );
 }

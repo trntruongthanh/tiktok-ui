@@ -1,72 +1,54 @@
-import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
+import PropTypes from 'prop-types';
+import React, { useState } from 'react';
 import styles from './LoginUse.module.scss';
 
-import { TriangleIcon } from '~/components/Icons';
-import Button from '~/components/Button';
+import LoginUseEmail from '~/components/LoginUseEmail/LoginUseEmail';
+import LoginUsePhone from '~/components/LoginUsePhone/LoginUsePhone';
 
 const cx = classNames.bind(styles);
 
-function LoginUse({ title, data = [], onClick}) {
+function LoginUse({ data = [], onClick, handleForgotPassword }) {
+  const [ChangeFormLogin, setChangeFormLogin] = useState(true);
+
+  const [showHideIcon, setShowHideIcon] = useState(false);
+
+  const handleChangeFormLogin = () => {
+    setChangeFormLogin((prev) => !prev);
+  };
+
+  const handleShowHide = (e) => {
+    e.preventDefault();
+    setShowHideIcon((prev) => !prev);
+  };
+
   return (
-    <div className={cx('wrapper')}>
-      <form className={cx('container')}>
-        <h2 className={cx('header')}>{title}</h2>
-
-        <div className={cx('description')}>
-          Phone
-          <a className={cx('description-link')} href="/">
-            Log in with email or username
-          </a>
-        </div>
-
-        <div className={cx('phone-container')}>
-          <div className={cx('country-phone-code')}>
-            <div className={cx('phone-country')}>
-              <span>VN +84</span>
-            </div>
-            <TriangleIcon className={cx('triangle-icon')} />
-          </div>
-          <input className={cx('phone-input-number')} placeholder="Phone number" type="text"></input>
-        </div>
-
-        <div className={cx('phone-code-container')}>
-          <div className={cx('input-code')}>
-            <input className={cx('phone-input-digit-code')} placeholder="Enter 6-digit code" type="text"></input>
-          </div>
-          <Button disabled large text className={cx('btn-send-code')}>
-            Send code
-          </Button>
-        </div>
-
-        <a className={cx('link-login')} href="/">
-          Log in with password
-        </a>
-
-        <Button className={cx('btn-login')} disabled large text>
-          Log in
-        </Button>
-      </form>
-
-      <footer className={cx('bottom-text')}>
-        {data.footer.title}
-        <a
-          onClick={(e) => {
-            e.preventDefault();
-            onClick()
-          }}
-
-          href="/"
-          className={cx('bottom-sign-up')}
-        >
-          {' '}
-          {data.footer.linkText}{' '}
-        </a>
-      </footer>
-    </div>
+    <React.Fragment>
+      {ChangeFormLogin ? (
+        <LoginUsePhone
+          data={data}
+          onClick={onClick}
+          changeFormLogin={handleChangeFormLogin}
+          handleShowHide={handleShowHide}
+          showHideState={showHideIcon}
+          handleForgotPassword={handleForgotPassword}
+        />
+      ) : (
+        <LoginUseEmail
+          data={data}
+          onClick={onClick}
+          changeFormLogin={handleChangeFormLogin}
+          handleShowHide={handleShowHide}
+          showHideState={showHideIcon}
+          handleForgotPassword={handleForgotPassword}
+        />
+      )}
+    </React.Fragment>
   );
 }
 
-LoginUse.propTypes = {};
+LoginUse.propTypes = {
+  title: PropTypes.string,
+};
 
 export default LoginUse;

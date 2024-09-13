@@ -6,6 +6,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 }
 
 .overlay {
@@ -22,11 +23,28 @@
   z-index: 21;
   width: 483px;
   height: 641px;
+  overflow-y: scroll;
 }
 
 .close-login-icon {
   position: absolute;
   right: 20px;
+  top: 20px;
+  width: 24px;
+  height: 24px;
+  background-color: var(--background-color);
+  cursor: pointer;
+
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+}
+
+.back-login-icon {
+  position: absolute;
+  left: 20px;
   top: 20px;
   width: 24px;
   height: 24px;

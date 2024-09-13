@@ -23,9 +23,9 @@ function DefaultLayout({ children }) {
 
       <div className={cx('container')}>
         <Sidebar onClick={handleClick} />
-
-        <div className={cx('content')}>{children}</div>
       </div>
+
+      <div className={cx('content')}>{children}</div>
 
       {isClick && <Auth setIsClick={setIsClick} />}
     </div>

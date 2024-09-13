@@ -11,16 +11,13 @@ import Image from '~/components/Image';
 const cx = classNames.bind(styles);
 
 function AccountPreview({ data }) {
-
   return (
     <div className={cx('wrapper')}>
       <div className={cx('header')}>
-        <Image
-          className={cx('avatar')}
-          src={data.avatar}
-          alt={data.nickname}
-        />
-        <Button className={cx('follow-btn')} primary>Follow</Button>
+        <Image className={cx('avatar')} src={data.avatar} alt={data.nickname} />
+        <Button className={cx('follow-btn')} primary>
+          Follow
+        </Button>
       </div>
 
       <div className={cx('body')}>
@@ -37,7 +34,6 @@ function AccountPreview({ data }) {
           <span className={cx('label')}>Likes</span>
         </p>
       </div>
-      
     </div>
   );
 }

@@ -1,0 +1,81 @@
+.wrapper {
+  width: 363px;
+  height: 642px;
+  margin: 64px auto auto;
+  padding: unset;
+}
+
+.header {
+  font-size: 3.2rem;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.sign-up-title {
+  font-weight: 600;
+  font-size: 1.6rem;
+  margin-bottom: 4px;
+  margin-left: 8px;
+}
+
+.btn-selector {
+  display: flex;
+}
+
+.icon-btn {
+  color: black;
+}
+
+.btn-choose {
+  width: 115px;
+  height: 44px;
+  font-size: 1.6rem;
+  font-weight: 400;
+  align-items: center;
+  color: rgba(22, 24, 35, 0.34);
+  background-color: #f1f1f2;
+
+  &:hover {
+    background-color: #f1f1f2; // Ensure hover does not change color
+  }
+}
+
+.description {
+  font-size: 1.4rem;
+  color: rgba(22, 24, 35, 0.5);
+  margin: 0 0 16px 8px;
+}
+
+.policy-confirm-tips {
+  font-size: 1.2rem;
+
+  text-align: center;
+  color: rgba(22, 24, 35, 0.5);
+  padding: 14px 30px;
+  margin-top: 26px;
+  word-wrap: wrap;
+}
+
+.text-link {
+  color: rgb(22, 24, 35);
+}
+
+.bottom-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: rgb(22, 24, 35);
+  font-size: 1.5rem;
+  padding: 14px;
+
+  width: 100%;
+  border-top: 1px solid #e2e3e4;
+}
+
+.bottom-sign-up {
+  color: var(--primary);
+  font-weight: 600;
+  margin-left: 5px;
+}
+

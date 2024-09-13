@@ -1,18 +1,15 @@
-import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
+import PropTypes from 'prop-types';
 import styles from './SuggestedAccounts.module.scss';
 
 import AccountItem from './AccountItem';
-import { useEffect } from 'react';
 
 const cx = classNames.bind(styles);
 
 function SuggestedAccounts({ label, data = [], onClick, seeAll }) {
-
   // useEffect(() => {
   //   console.log('SuggestedAccounts seeAll:', seeAll); // Debugging line
   // }, [seeAll]);
-
 
   return (
     <div className={cx('wrapper')}>

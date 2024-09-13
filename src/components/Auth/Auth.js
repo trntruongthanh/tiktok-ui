@@ -7,47 +7,88 @@ import ModalWrapper from '../ModalWrapper';
 
 import { loginModalData, signupModalData } from '~/temp/data/modals/loginModal';
 
+import ResetPasswordLoginForm from '../ResetPasswordLoginForm/ResetPasswordLoginForm';
 import LoginDefault from './Form/LoginDefault/LoginDefault';
 import LoginUse from './Form/LoginUse/LoginUse';
+import SignUpWithPhoneEmail from './Form/SignUpWithPhoneEmail/SignUpWithPhoneEmail';
 
 const cx = classNames.bind(styles);
 
 function Auth({ setIsClick }) {
-  const [isDefaultForm, setIsDefaultForm] = useState(true);
-  const [isUseForm, setIsUseForm] = useState(false);
+  const [formState, setFormState] = useState({
+    isDefaultForm: true,
+    isUseForm: false,
+    isUseEmailForm: false,
+    changeForm: true,
+    forgotPassword: false,
+  });
 
-  const [changeForm, setChangeForm] = useState(true);
+  const currentForm = formState.isDefaultForm ? loginModalData : signupModalData;
 
-  const currentForm = isDefaultForm ? loginModalData : signupModalData;
+  const updateFormState = (updates) => {
+    setFormState((prevState) => ({ ...prevState, ...updates }));
+  };
 
   const handleForm = () => {
-    setIsDefaultForm(!isDefaultForm);
+    updateFormState({ isDefaultForm: !formState.isDefaultForm });
   };
 
   const handleUseForm = () => {
-    setIsUseForm(false);
-    setIsDefaultForm(false);
-    setChangeForm(true);
+    updateFormState({
+      isUseForm: false,
+      isDefaultForm: false,
+      changeForm: true,
+    });
+  };
+
+  const handleUseEmailForm = () => {
+    updateFormState({
+      isUseEmailForm: false,
+      isDefaultForm: true,
+    });
   };
 
   const handleItemClick = (title) => {
-    if (title === 'Use phone / email / username' || 'Use phone or email') {
-      setIsUseForm(true);
-      setIsDefaultForm(true);
-      setChangeForm(false);
+    if (title === 'Use phone / email / username') {
+      updateFormState({
+        isUseForm: true,
+        isDefaultForm: true,
+        changeForm: false,
+      });
+    } else if (title === 'Use phone or email') {
+      updateFormState({
+        isDefaultForm: false,
+        isUseEmailForm: true,
+      });
     }
+  };
+
+  const handleForgotForm = () => {
+    updateFormState({
+      forgotPassword: !formState.forgotPassword,
+      isUseForm: false,
+    });
   };
 
   return (
     <ModalWrapper setIsClick={setIsClick}>
-      {changeForm && <LoginDefault data={currentForm} onItemClick={handleItemClick} onClick={handleForm} />}
-      {isUseForm && <LoginUse data={currentForm} title={'Log in'} onClick={handleUseForm} />}
+      {formState.changeForm && <LoginDefault data={currentForm} onItemClick={handleItemClick} onClick={handleForm} />}
+
+      {formState.isUseForm && (
+        <LoginUse data={currentForm} title={'Log in'} onClick={handleUseForm} handleForgotPassword={handleForgotForm} />
+      )}
+
+      {formState.isUseEmailForm && (
+        <SignUpWithPhoneEmail data={currentForm} title={'Sign up'} onClick={handleUseEmailForm} />
+      )}
+
+      {formState.forgotPassword && <ResetPasswordLoginForm />}
     </ModalWrapper>
   );
 }
 
 Auth.propTypes = {
-  setIsClick: PropTypes.func,
+  setIsClick: PropTypes.func.isRequired,
 };
 
 export default Auth;

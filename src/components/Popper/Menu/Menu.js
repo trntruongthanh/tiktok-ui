@@ -20,7 +20,7 @@ function Menu({ children, items = [], hideOnClick = false, onChange = defaultFn 
 
   const renderItems = () => {
     return current.data.map((item, index) => {
-      const isParent = !!item.children;     // chuyển đổi một giá trị thành giá trị boolean 2 lan.
+      const isParent = !!item.children; // chuyển đổi một giá trị thành giá trị boolean 2 lan.
 
       return (
         <MenuItem
@@ -40,17 +40,12 @@ function Menu({ children, items = [], hideOnClick = false, onChange = defaultFn 
 
   const handleBack = () => {
     setHistory((prev) => prev.slice(0, prev.length - 1));
-  }
+  };
 
   const renderResult = (attrs) => (
     <div className={cx('menu-list')} tabIndex="-1" {...attrs}>
       <PopperWrapper className={cx('menu-popper')}>
-        {history.length > 1 && (
-          <Header
-            title={current.title}
-            onBack={handleBack}
-          />
-        )}
+        {history.length > 1 && <Header title={current.title} onBack={handleBack} />}
         <div className={cx('menu-body')}>{renderItems()}</div>
       </PopperWrapper>
     </div>
@@ -65,11 +60,11 @@ function Menu({ children, items = [], hideOnClick = false, onChange = defaultFn 
     <Tippy
       delay={[0, 600]}
       interactive
-      hideOnClick={hideOnClick}
       placement="bottom-end"
       offset={[14, 10]}
       render={renderResult}
       onHide={handleResetMenu}
+      hideOnClick={hideOnClick}
     >
       {children}
     </Tippy>

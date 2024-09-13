@@ -16,7 +16,7 @@ const cx = classNames.bind(styles);
 function AccountItem({ data }) {
   const renderPreview = (props) => {
     return (
-      <div tabIndex="1" {...props}>
+      <div tabIndex="-1" {...props}>
         <PopperWrapper>
           <AccountPreview data={data} />
         </PopperWrapper>
@@ -26,7 +26,14 @@ function AccountItem({ data }) {
 
   return (
     <div>
-      <Tippy interactive delay={[1000, 0]} offset={[-10, 0]} placement="bottom" render={renderPreview}>
+      <Tippy
+        interactive
+        delay={[100, 0]}
+        offset={[-10, 0]}
+        placement="bottom"
+        render={renderPreview}
+        appendTo={() => document.body}
+      >
         <div className={cx('account-item')}>
           <Image className={cx('avatar')} src={data.avatar} alt={data.nickname} />
           <div className={cx('item-info')}>

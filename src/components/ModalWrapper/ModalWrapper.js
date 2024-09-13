@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
+import PropTypes from 'prop-types';
+import React, { useState } from 'react';
 import styles from './ModalWrapper.module.scss';
 
 import { Wrapper as PopperWrapper } from '~/components/Popper';
@@ -35,7 +35,7 @@ function ModalWrapper({ children, setIsClick }) {
 
 ModalWrapper.propTypes = {
   children: PropTypes.node.isRequired,
-  setIsClick: PropTypes.bool.isRequired,
+  setIsClick: PropTypes.func.isRequired,
 };
 
 export default ModalWrapper;
