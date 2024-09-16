@@ -19,7 +19,10 @@ import {
   UnmuteVolumeIcon,
 } from '~/components/Icons';
 
-import Tippy from '@tippyjs/react/headless';
+import Tippy from '@tippyjs/react';
+import TippyHeadless from '@tippyjs/react/headless';
+import 'tippy.js/dist/tippy.css';
+
 import { Wrapper as PopperWrapper } from '~/components/Popper';
 
 import images from '~/assets/images';
@@ -184,9 +187,11 @@ function Video({ src, data }) {
 
             <input className={cx('range')} type="range" defaultValue="0" step="1" min="0" max="100" />
 
-            <button className={cx('action-icon')}>
-              <FloatingIcon />
-            </button>
+            <Tippy delay={[0, 0]} content="miniplayer" placement="top">
+              <button className={cx('action-icon')}>
+                <FloatingIcon />
+              </button>
+            </Tippy>
 
             <button
               className={cx('action-icon')}
@@ -208,7 +213,7 @@ function Video({ src, data }) {
       </div>
 
       <section className={cx('section-action-bar')}>
-        <Tippy
+        <TippyHeadless
           interactive
           delay={[100, 20]}
           offset={[137, 12]}
@@ -224,7 +229,7 @@ function Video({ src, data }) {
               <ButtonContentIcon />
             </button>
           </div>
-        </Tippy>
+        </TippyHeadless>
 
         <button className={cx('action-icon-bar')}>
           <span className={cx('action-icon-span')}>
@@ -247,7 +252,7 @@ function Video({ src, data }) {
           <strong className={cx('action-count')}>199</strong>
         </button>
 
-        <Tippy
+        <TippyHeadless
           interactive
           delay={[300, 400]}
           offset={[100, 0]}
@@ -264,7 +269,7 @@ function Video({ src, data }) {
             </span>
             <strong className={cx('action-count')}>{data.shares_count}</strong>
           </button>
-        </Tippy>
+        </TippyHeadless>
       </section>
     </div>
   );

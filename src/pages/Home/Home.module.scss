@@ -1,2 +1,25 @@
 .wrapper {
+  position: relative;
+}
+
+.bottom-container {
+  position: fixed;
+  top: 900px;
+  right: 5px;
+}
+
+.get-app {
+  color: rgba(22, 24, 35, 0.75);
+  font-weight: 700;
+
+  border-radius: 52px;
+  -webkit-border-radius: 52px;
+  -moz-border-radius: 52px;
+  -ms-border-radius: 52px;
+  -o-border-radius: 52px;
+
+  &:hover {
+    border-color: rgba(22, 24, 35, 0.2);
+    background-color: rgb(255, 255, 255);
+  }
 }

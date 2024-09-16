@@ -1,0 +1,30 @@
+.wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin: 0 48px 8px 16px;
+}
+
+.expand-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.item-container {
+  cursor: pointer;
+}
+
+.close-icon {
+  position: absolute;
+  right: -30px;
+  top: 0;
+  cursor: pointer;
+}
+
+.span-text {
+  margin-left: 8px;
+  margin-right: 8px;
+  white-space: nowrap;
+}
