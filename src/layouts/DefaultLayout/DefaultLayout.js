@@ -1,16 +1,18 @@
 import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
 import styles from './DefaultLayout.module.scss';
+import { useContext, useState } from 'react';
 
 import Header from '~/layouts/components/Header';
 import Sidebar from '~/layouts/components/Sidebar';
 
 import Auth from '~/components/Auth/Auth';
-import { useState } from 'react';
+import { GlobalContext } from '~/Context/GlobalContext';
 
 const cx = classNames.bind(styles);
 
 function DefaultLayout({ children }) {
+  const { theme } = useContext(GlobalContext);
   const [isClick, setIsClick] = useState(false);
 
   const handleClick = () => {
@@ -25,7 +27,7 @@ function DefaultLayout({ children }) {
         <Sidebar onClick={handleClick} />
       </div>
 
-      <div className={cx('content')}>{children}</div>
+      <div className={cx('content', { light: theme === 'light', dark: theme === 'dark' })}>{children}</div>
 
       {isClick && <Auth setIsClick={setIsClick} />}
     </div>

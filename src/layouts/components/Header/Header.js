@@ -1,6 +1,8 @@
 import classNames from 'classnames/bind'; // npm i classnames
-import React from 'react';
+import React, { useContext } from 'react';
 import styles from './Header.module.scss';
+
+import { GlobalContext } from '~/Context/GlobalContext';
 
 import { Link } from 'react-router-dom';
 import config from '~/config';
@@ -18,6 +20,7 @@ import 'tippy.js/dist/tippy.css';
 
 import Button from '~/components/Button';
 import Menu from '~/components/Popper/Menu';
+
 
 import {
   CreatorIcon,
@@ -63,15 +66,29 @@ const MENU_ITEMS = [
   {
     icon: <DarkModeIcon />,
     title: 'Dark mode',
+    children: {
+      title: 'Dark mode',
+      data: [
+        {
+          title: 'Auto',
+          isChild: true,
+        },
+        {
+          title: 'Dark mode',
+          isChild: true,
+        },
+        {
+          title: 'Light mode',
+          isChild: true,
+        },
+      ],
+    },
   },
 ];
 
 function Header({ onClick }) {
-  const currentUser = false;
 
-  const handleMenuChange = (MenuItem) => {
-    // console.log(MenuItem);
-  };
+  const { theme, handleMenuChange } = useContext(GlobalContext);
 
   const userMenu = [
     {
@@ -98,11 +115,13 @@ function Header({ onClick }) {
     },
   ];
 
+  const currentUser = false;
+
   return (
-    <header className={cx('wrapper')}>
+    <header className={cx('wrapper', { light: theme === 'light', dark: theme === 'dark' })}>
       <div className={cx('inner')}>
         <Link to={config.routes.home} className={cx('logo-link')}>
-          <img src={images.logo} alt="TikTok"></img>
+          <img className={cx('logo')} src={theme === 'light' ? images.logo : images.logoWhite} alt="TikTok"></img>
         </Link>
 
         <Search />
@@ -111,19 +130,19 @@ function Header({ onClick }) {
           {currentUser ? (
             <React.Fragment>
               <Tippy delay={[0, 50]} content="Upload video" placement="bottom">
-                <button className={cx('action-btn')}>
+                <button className={cx('action-btn', { light: theme === 'light', dark: theme === 'dark' })}>
                   <UploadIcon />
                 </button>
               </Tippy>
 
               <Tippy delay={[0, 50]} content="Message" placement="bottom">
-                <button className={cx('action-btn')}>
+                <button className={cx('action-btn', { light: theme === 'light', dark: theme === 'dark' })}>
                   <MessageIcon />
                 </button>
               </Tippy>
 
               <Tippy delay={[0, 50]} content="Inbox" placement="bottom">
-                <button className={cx('action-btn')}>
+                <button className={cx('action-btn', { light: theme === 'light', dark: theme === 'dark' })}>
                   <InboxIcon />
                   <span className={cx('badge')}>12</span>
                 </button>
@@ -131,7 +150,11 @@ function Header({ onClick }) {
             </React.Fragment>
           ) : (
             <React.Fragment>
-              <Button text onClick={onClick}>
+              <Button
+                className={cx('btn-upload', { light: theme === 'light', dark: theme === 'dark' })}
+                text
+                onClick={onClick}
+              >
                 Upload
               </Button>
               <Button primary onClick={onClick}>
@@ -148,7 +171,7 @@ function Header({ onClick }) {
                 alt="Thanh Tran"
               />
             ) : (
-              <button className={cx('more-btn')}>
+              <button className={cx('more-btn', { light: theme === 'light', dark: theme === 'dark' })}>
                 <FontAwesomeIcon icon={faEllipsisVertical} />
               </button>
             )}

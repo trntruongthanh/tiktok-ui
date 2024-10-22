@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 
 import {
   ArrowBottomIcon,
@@ -18,6 +18,7 @@ import {
   WhatsAppIcon,
 } from '~/components/Icons';
 import styles from './SharePreview.module.scss';
+import { GlobalContext } from '~/Context/GlobalContext';
 
 const cx = classNames.bind(styles);
 
@@ -42,6 +43,8 @@ const shareOptionsMore = [
 ];
 
 function SharePreview({ isMoreShareOption, handleMoreShareOption }) {
+  const { theme } = useContext(GlobalContext);
+
   const options = isMoreShareOption ? shareOptionsMore : shareOptions;
 
   return (
@@ -51,12 +54,16 @@ function SharePreview({ isMoreShareOption, handleMoreShareOption }) {
           <span className={cx('preview-icon')}>
             <Icon />
           </span>
-          <span className={cx('preview-text')}>{text}</span>
+          <span className={cx('preview-text', { light: theme === 'light', dark: theme === 'dark' })}>{text}</span>
         </a>
       ))}
 
       {!isMoreShareOption && (
-        <a onClick={handleMoreShareOption} className={cx('more-share-option')} href="/">
+        <a
+          onClick={handleMoreShareOption}
+          className={cx('more-share-option', { light: theme === 'light', dark: theme === 'dark' })}
+          href="/"
+        >
           <ArrowBottomIcon />
         </a>
       )}

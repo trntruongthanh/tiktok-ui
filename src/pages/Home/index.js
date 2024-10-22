@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 import classNames from 'classnames/bind';
 import styles from './Home.module.scss';
@@ -12,12 +12,15 @@ import Button from '~/components/Button';
 import VideoItem from './VideoItems/VideoItem';
 
 import GetApp from '~/components/GetApp/GetApp';
+import { GlobalContext } from '~/Context/GlobalContext';
 
 const cx = classNames.bind(styles);
 
 const INIT_PAGE = 1;
 const THRESHOLD = 0.7; // Ngưỡng 70%
 function Home() {
+  const { theme } = useContext(GlobalContext);
+
   const [videoList, setVideoList] = useState([]);
 
   const [page, setPage] = useState(INIT_PAGE);
@@ -77,11 +80,13 @@ function Home() {
     };
   }, [videoList.length]);
 
-  const renderGetApp = (props) => (
-    <div tabIndex="-1" {...props}>
-      <PopperWrapper>{tippyVisible && <GetApp handleClose={handleClose} />}</PopperWrapper>
-    </div>
-  );
+  const renderGetApp = (props) => {
+    return (
+      <div tabIndex="-1" {...props}>
+        <PopperWrapper>{tippyVisible && <GetApp handleClose={handleClose} />}</PopperWrapper>
+      </div>
+    );
+  };
 
   return (
     <div className={cx('wrapper')}>
@@ -97,9 +102,12 @@ function Home() {
         visible={tippyVisible}
         onClickOutside={handleClose}
       >
-        <div onClick={handleOpen} className={cx('bottom-container')}>
+        <div
+          onClick={handleOpen}
+          className={cx('bottom-container')}
+        >
           <div className={cx('get-app-bottom')}>
-            <Button className={cx('get-app')} small text outline>
+            <Button className={cx('get-app', { light: theme === 'light', dark: theme === 'dark' })} small text outline>
               Get app
             </Button>
           </div>

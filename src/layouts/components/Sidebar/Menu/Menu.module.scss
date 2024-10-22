@@ -21,6 +21,10 @@
   -ms-transition: background-color ease-in-out 200ms;
   -o-transition: background-color ease-in-out 200ms;
 
+  &.dark {
+    color: rgb(255, 255, 255);
+  }
+
   &.active {
     color: var(--primary);
 
@@ -31,11 +35,13 @@
     // .active-icon {
     //   display: block;
     // }
+    
   }
 
   &:hover {
     background: rgba(22, 24, 35, 0.03);
   }
+
 }
 
 .title {

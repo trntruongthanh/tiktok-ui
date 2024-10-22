@@ -41,6 +41,10 @@
   color: rgba(22, 24, 35, 0.5);
   margin-top: 15px;
   cursor: pointer;
+
+  &.dark {
+    color: rgba(255, 255, 255, 0.5);
+  }
 }
 
 .footer-options {
@@ -57,22 +61,35 @@
   &:hover {
     text-decoration: underline;
   }
+
+  &.dark {
+    color: rgba(255, 255, 255, 0.5);
+  }
 }
 
 .active {
   color: black;
 }
 
+.footer-header.active.dark {
+  // New style for dark mode
+  color: rgba(255, 255, 255, 0.9); // Change to white when active in dark mode
+}
+
 .see-more {
   display: flex;
   align-items: center;
-  
+
   position: relative;
   bottom: 12px;
   color: rgba(22, 24, 35, 0.34);
   font-weight: 600;
   font-size: 1.2rem;
   cursor: pointer;
+
+  &.dark {
+    color: rgba(255, 255, 255, 0.5);
+  }
 }
 
 .hide {
@@ -90,6 +107,8 @@
   font-weight: 600;
   color: rgba(22, 24, 35, 0.5);
   line-height: 16px;
+
+  &.dark {
+    color: rgba(255, 255, 255, 0.5);
+  }
 }
-
-

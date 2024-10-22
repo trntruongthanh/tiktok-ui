@@ -13,10 +13,22 @@
   z-index: 99999;
 
   background-color: var(--white);
+  color: var(--black);
 
   height: var(--default-layout-header-height);
   box-shadow: 0px 1px 1px rgb(0 0 0 / 12%);
   width: 100%;
+
+  &.light {
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+  }
+
+  &.dark {
+    background-color: rgb(18, 18, 18);
+    color: rgb(255, 255, 255);
+    box-shadow: 0px 1px 1px rgb(47, 47, 47);
+  }
 }
 
 .inner {
@@ -44,6 +56,10 @@
   margin-left: 28px;
   background-color: transparent;
   cursor: pointer;
+
+  &.dark {
+    color: rgb(255, 255, 255);
+  }
 }
 
 .action-btn {
@@ -51,10 +67,25 @@
   display: flex;
 
   background-color: transparent;
-  color: #161823;
+  color: rgb(22, 24, 35);
   font-size: 2rem;
   padding: 4px 12px;
   cursor: pointer;
+
+  &.dark {
+    color: rgb(255, 255, 255);
+  }
+}
+
+.btn-upload {
+  &.dark {
+    background: rgb(45, 45, 45);
+    color: rgb(255, 255, 255);
+
+    &:hover {
+      background-color: rgb(49, 49, 49);
+    }
+  }
 }
 
 .badge {
@@ -67,7 +98,7 @@
   font-size: 1.4rem;
   font-weight: 600;
   font-family: var(--font-family);
-  color: var(--white);
+  color: rgb(255, 255, 255);
   background-color: var(--primary);
 
   border-radius: 10px;

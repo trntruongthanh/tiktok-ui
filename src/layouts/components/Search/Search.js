@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 
 import classNames from 'classnames/bind'; // npm i classnames
 import styles from './Search.module.scss';
@@ -16,10 +16,13 @@ import { SearchIcon } from '~/components/Icons';
 import { useDebounce } from '~/hooks';
 
 import * as searchService from '~/services/searchService';
+import { GlobalContext } from '~/Context/GlobalContext';
 
 const cx = classNames.bind(styles);
 
 function Search() {
+  const { theme } = useContext(GlobalContext);
+
   const [searchResult, setSearchResult] = useState([]);
   const [searchValue, setSearchValue] = useState(''); // chuc nang la clear
   const [showResult, setShowResult] = useState(false);
@@ -80,8 +83,9 @@ function Search() {
         )}
         onClickOutside={handleHideResult}
       >
-        <div className={cx('search')}>
+        <div className={cx('search', { light: theme === 'light', dark: theme === 'dark' })}>
           <input
+            className={cx('input-search', { light: theme === 'light', dark: theme === 'dark' })}
             ref={inputRef}
             value={searchValue}
             placeholder="Search"
@@ -91,14 +95,17 @@ function Search() {
           />
 
           {!!searchValue && !loading && (
-            <button className={cx('clear')} onClick={handleClear}>
+            <button className={cx('clear', { light: theme === 'light', dark: theme === 'dark' })} onClick={handleClear}>
               <FontAwesomeIcon icon={faCircleXmark} />
             </button>
           )}
 
           {loading && <FontAwesomeIcon className={cx('loading')} icon={faSpinner} />}
 
-          <button className={cx('search-btn')} onMouseDown={(event) => event.preventDefault()}>
+          <button
+            className={cx('search-btn', { light: theme === 'light', dark: theme === 'dark' })}
+            onMouseDown={(event) => event.preventDefault()}
+          >
             <SearchIcon />
           </button>
         </div>

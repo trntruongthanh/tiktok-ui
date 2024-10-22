@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from './Sidebar.module.scss';
 
@@ -25,6 +25,7 @@ import Menu, { MenuItem } from './Menu';
 import SuggestedAccounts from '~/components/SuggestedAccounts';
 import LoginTip from '~/components/LoginTip';
 import Footer from '~/components/Footer';
+import { GlobalContext } from '~/Context/GlobalContext';
 
 const cx = classNames.bind(styles);
 
@@ -33,6 +34,8 @@ const PER_PAGE = 5;
 const MAX_PAGE = 10;
 
 function Sidebar({ onClick }) {
+  const { theme } = useContext(GlobalContext);
+
   const [suggestedUsers, setSuggestedUsers] = useState([]);
 
   const [page, setPage] = useState(INIT_PAGE);
@@ -70,7 +73,7 @@ function Sidebar({ onClick }) {
   // }, [seeAll]);
 
   return (
-    <aside className={cx('wrapper')}>
+    <aside className={cx('wrapper', { light: theme === 'light', dark: theme === 'dark' })}>
       <Menu>
         <MenuItem title="For You" to={config.routes.home} icon={<HomeIcon />} activeIcon={<HomeActiveIcon />} />
 
@@ -108,7 +111,7 @@ function Sidebar({ onClick }) {
         />
       </Menu>
 
-      <SuggestedAccounts label="Suggested for you" data={suggestedUsers} onClick={handleSeeAll} seeAll={seeAll} />
+      {/* <SuggestedAccounts label="Suggested for you" data={suggestedUsers} onClick={handleSeeAll} seeAll={seeAll} /> */}
 
       <LoginTip onClick={onClick} />
 

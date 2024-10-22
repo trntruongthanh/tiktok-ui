@@ -13,10 +13,29 @@
   height: 1px;
   background: rgba(22, 24, 35, 0.12);
   transform: scaleY(0.5);
+
+  &.dark {
+    background-color: rgb(47, 47, 47);
+  }
 }
 
 .login-btn {
   width: 100%;
   margin-top: 20px;
   margin-left: 0;
+
+  &.dark {
+    background-color: rgb(47, 47, 47);
+
+    &:hover {
+      background-color: rgba(254, 44, 85, 0.06);
+    }
+  }
+}
+
+.quote {
+  &.dark {
+    background-color: rgb(18, 18, 18);
+    color: rgba(255, 255, 255, 0.5);
+  }
 }

@@ -3,6 +3,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+
+
 }
 
 .container {
@@ -16,7 +18,11 @@
 .content {
   position: absolute;
   right: 0;
-  top: calc(80px - 16px);
-  flex: 1;
+  top: calc(80px - 19px);
   width: calc(100% - 234px);
+  flex: 1;
+
+  &.dark {
+    background-color: rgb(18, 18, 18);
+  }
 }

@@ -1,8 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
-
-import { useRef, useState } from 'react';
+import PropTypes from 'prop-types';
+import { useCallback, useContext, useRef, useState } from 'react';
 import styles from './Video.module.scss';
 
 import {
@@ -29,36 +27,72 @@ import images from '~/assets/images';
 import Image from '~/components/Image';
 import AccountPreview from '~/components/SuggestedAccounts/AccountPreview';
 import SharePreview from './SharePreview/SharePreview';
+import { GlobalContext } from '~/Context/GlobalContext';
 
 const cx = classNames.bind(styles);
 
 function Video({ src, data }) {
   const videoRef = useRef(null);
 
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [isMuted, setIsMuted] = useState(false);
+  const { theme } = useContext(GlobalContext);
+  // const { isGlobalMuted, toggleGlobalMute } = useContext(VideoContext);
 
-  const [isHovering, setIsHovering] = useState(false);
-  const [isVolumeHovering, setIsVolumeHovering] = useState(false);
+  // Combine State Variables:
+  const [state, setState] = useState({
+    isPlaying: false,
 
-  // Share preview
-  const [isMoreShareOption, setIsMoreShareOption] = useState(false);
+    isMuted: true,
+    isVolumeHovering: false, // Để hiển thị thanh kéo âm lượng
+
+    isHovering: false,
+
+    isMoreShareOptions: false,
+
+    volumeRange: 10,
+
+    seekBarValue: 0,
+  });
+
+  // handle play and pause
 
   const toggleMute = () => {
-    setIsMuted((prevState) => !prevState);
+    const newMuteState = !state.isMuted;
+
+    setState((prev) => ({ ...prev, isMuted: newMuteState }));
+
+    // toggleGlobalMute(newMuteState); // Update global mute state
   };
+
+  // const handleVideoClick = () => {
+  //   toggleMute(); // Toggle mute on video click
+  // };
 
   const togglePlay = () => {
     if (videoRef.current) {
-      if (isPlaying) {
+      if (state.isPlaying) {
         videoRef.current.pause();
       } else {
         videoRef.current.play();
       }
-      setIsPlaying(!isPlaying);
+      setState((prev) => ({ ...prev, isPlaying: !prev.isPlaying }));
+    } else {
+      console.error('Video element not found.');
     }
   };
 
+  const handleMouseEnter = () => setState((prev) => ({ ...prev, isHovering: true }));
+  const handleMouseLeave = () => setState((prev) => ({ ...prev, isHovering: false }));
+
+  const handleVolumeMouseEnter = () => setState((prev) => ({ ...prev, isVolumeHovering: true }));
+  const handleVolumeMouseLeave = () => setState((prev) => ({ ...prev, isVolumeHovering: false }));
+
+  // handle button share
+  const handleMoreShareOption = useCallback((e) => {
+    e.preventDefault();
+    setState((prev) => ({ ...prev, isMoreShareOptions: !prev.isMoreShareOptions }));
+  }, []);
+
+  // render tippy
   const renderPreview = (props) => {
     return (
       <div tabIndex="-1" {...props}>
@@ -69,28 +103,51 @@ function Video({ src, data }) {
     );
   };
 
-  const handleMoreShareOption = (e) => {
-    e.preventDefault();
-    setIsMoreShareOption((prev) => !prev);
-  };
-
   const renderSharePreview = (props) => {
     return (
       <div tabIndex="-1" {...props}>
-        <PopperWrapper>
-          <SharePreview isMoreShareOption={isMoreShareOption} handleMoreShareOption={handleMoreShareOption} />
+        <PopperWrapper className={cx('share-menu', { light: theme === 'light', dark: theme === 'dark' })}>
+          <SharePreview isMoreShareOption={state.isMoreShareOptions} handleMoreShareOption={handleMoreShareOption} />
         </PopperWrapper>
       </div>
     );
   };
 
+  // handle volume
+  const handleVolume = useCallback((e) => {
+    const newValue = e.target.value;
+
+    if (videoRef.current) {
+      videoRef.current.volume = newValue / 100;
+    }
+
+    setState((prev) => ({ ...prev, volumeRange: newValue }));
+  }, []);
+
+  // handle seek bar
+  const handleSeekChange = useCallback((e) => {
+    const newTime = e.target.value;
+
+    if (videoRef.current) {
+      videoRef.current.currentTime = (newTime / 100) * videoRef.current.duration;
+    }
+
+    setState((prev) => ({ ...prev, seekBarValue: newTime }));
+  }, []);
+
+  const handleTimeUpdate = useCallback((e) => {
+    if (videoRef.current) {
+      const currentTime = videoRef.current.currentTime;
+      const duration = videoRef.current.duration;
+      const percentage = (currentTime / duration) * 100;
+
+      setState((prev) => ({ ...prev, seekBarValue: percentage }));
+    }
+  }, []);
+
   return (
     <div className={cx('video-container')}>
-      <div
-        className={cx('video-wrapper')}
-        onMouseEnter={() => setIsHovering(true)}
-        onMouseLeave={() => setIsHovering(false)}
-      >
+      <div className={cx('video-wrapper')} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
         <video
           /*
             root:
@@ -104,44 +161,52 @@ function Video({ src, data }) {
           className={cx('video')}
           src={src}
           ref={videoRef}
-          muted={isMuted}
+          muted={state.isMuted}
           loop
           playsInline
           onLoadedMetadata={() => {
-            const options = {
-              root: null,
-              rootMargin: '-50px',
-              threshold: 0.5,
-            };
+            if (videoRef.current) {
+              const options = {
+                root: null,
+                rootMargin: '-50px',
+                threshold: 0.5,
+              };
 
-            // Designed to observe when an HTML element appears or disappears from the user's viewport.
-            const observer = new IntersectionObserver((entries) => {
-              entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                  videoRef.current
-                    .play()
-                    .then(() => {
-                      setIsPlaying(true);
-                    })
-                    .catch((error) => {
-                      // Autoplay was prevented. We need user interaction.
-                      console.log('Autoplay prevented. User interaction required.');
-                      setIsPlaying(false);
-                    });
-                } else {
-                  videoRef.current.pause();
-                  setIsPlaying(false);
+              const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                  if (videoRef.current) {
+                    if (entry.isIntersecting) {
+                      videoRef.current
+                        .play()
+                        .then(() => setState((prev) => ({ ...prev, isPlaying: true })))
+                        .catch((error) => {
+                          console.log('Autoplay prevented. User interaction required.', error);
+                          setState((prev) => ({ ...prev, isPlaying: false }));
+                        });
+                    } else {
+                      videoRef.current.pause();
+                      setState((prev) => ({ ...prev, isPlaying: false }));
+                    }
+                  } else {
+                    console.error('Video element not found during IntersectionObserver callback.');
+                  }
+                });
+              }, options);
+              observer.observe(videoRef.current);
+
+              return () => {
+                if (videoRef.current) {
+                  observer.unobserve(videoRef.current);
                 }
-              });
-            }, options);
-
-            observer.observe(videoRef.current);
+              };
+            }
           }}
-          onPlay={() => setIsPlaying(true)}
-          onPause={() => setIsPlaying(false)}
+          onPlay={() => setState((prev) => ({ ...prev, isPlaying: true }))}
+          onPause={() => setState((prev) => ({ ...prev, isPlaying: false }))}
+          onTimeUpdate={handleTimeUpdate}
         />
 
-        <div className={cx('media-card-bottom', { 'media-card-bottom-hover': isHovering })}>
+        <div className={cx('media-card-bottom', { 'media-card-bottom-hover': state.isHovering })}>
           <div className={cx('tag-container')}>
             <div className={cx('tag-content')}>
               <a target="_blank" rel="noopener noreferrer" href="/">
@@ -165,6 +230,7 @@ function Video({ src, data }) {
           <div className={cx('description-container')}>
             <span className={cx('description-text')}>{data.description}</span>
             <a className={cx('description-link')} href="/">
+              {' '}
               #capcut #template
             </a>
           </div>
@@ -179,13 +245,23 @@ function Video({ src, data }) {
           </div>
         </div>
 
-        {isHovering && (
+        {state.isHovering && (
           <div className={cx('slider', 'slider-visible')}>
             <button className={cx('action-icon')} onClick={togglePlay}>
-              {isPlaying ? <PauseIcon /> : <PlayIcon />}
+              {state.isPlaying ? <PauseIcon /> : <PlayIcon />}
             </button>
 
-            <input className={cx('range')} type="range" defaultValue="0" step="1" min="0" max="100" />
+            <div className={cx('seek-bar-container')}>
+              <input
+                className={cx('seek-bar')}
+                type="range"
+                step="1"
+                min="0"
+                max="100"
+                value={state.seekBarValue}
+                onChange={handleSeekChange}
+              />
+            </div>
 
             <Tippy delay={[0, 0]} content="miniplayer" placement="top">
               <button className={cx('action-icon')}>
@@ -193,21 +269,32 @@ function Video({ src, data }) {
               </button>
             </Tippy>
 
-            <button
-              className={cx('action-icon')}
-              onClick={toggleMute}
-              onMouseEnter={() => setIsVolumeHovering(true)}
-              onMouseLeave={() => setIsVolumeHovering(false)}
+            <div
+              className={cx('volume-wrapper')}
+              onMouseEnter={handleVolumeMouseEnter}
+              onMouseLeave={handleVolumeMouseLeave}
             >
-              {isMuted ? <MuteVolumeIcon /> : <UnmuteVolumeIcon />}
-            </button>
+              {/* Volume range */}
+              {state.isVolumeHovering && (
+                <div className={cx('volume-container')}>
+                  <input
+                    className={cx('volume-range')}
+                    orient="vertical"
+                    type="range"
+                    value={state.volumeRange}
+                    step="1"
+                    min="0"
+                    max="100"
+                    onChange={handleVolume}
+                    id="seekBar"
+                  />
+                </div>
+              )}
 
-            {/* Volume range */}
-            {isVolumeHovering && (
-              <div className={cx('volume-container')}>
-                <input className={cx('volume-range')} type="range" min="0" max="100" />
-              </div>
-            )}
+              <button className={cx('action-icon')} onClick={toggleMute}>
+                {state.isMuted ? <MuteVolumeIcon /> : <UnmuteVolumeIcon />}
+              </button>
+            </div>
           </div>
         )}
       </div>
@@ -231,41 +318,29 @@ function Video({ src, data }) {
           </div>
         </TippyHeadless>
 
-        <button className={cx('action-icon-bar')}>
-          <span className={cx('action-icon-span')}>
-            <HeartIcon className={cx('icon-bar')} />
-          </span>
-          <strong className={cx('action-count')}>{data.likes_count}</strong>
-        </button>
-
-        <button className={cx('action-icon-bar')}>
-          <span className={cx('action-icon-span')}>
-            <CommentIcon className={cx('icon-bar')} />
-          </span>
-          <strong className={cx('action-count')}>{data.comments_count}</strong>
-        </button>
-
-        <button className={cx('action-icon-bar')}>
-          <span className={cx('action-icon-span')}>
-            <SaveIcon className={cx('icon-bar')} />
-          </span>
-          <strong className={cx('action-count')}>199</strong>
-        </button>
+        {['likes_count', 'comments_count', 'save'].map((action, index) => (
+          <button key={index} className={cx('action-icon-bar', { light: theme === 'light', dark: theme === 'dark' })}>
+            <span className={cx('action-icon-span', { light: theme === 'light', dark: theme === 'dark' })}>
+              {action === 'likes_count' && <HeartIcon />}
+              {action === 'comments_count' && <CommentIcon />}
+              {action === 'save' && <SaveIcon />}
+            </span>
+            <strong className={cx('action-count')}>{data[action]}</strong>
+          </button>
+        ))}
 
         <TippyHeadless
           interactive
-          delay={[300, 400]}
+          delay={[200, 400]}
           offset={[100, 0]}
           placement="top"
           render={renderSharePreview}
-          onHidden={() => {
-            setIsMoreShareOption(false); // Reset the share options when leaving the tooltip
-          }}
+          onHidden={() => setState((prev) => ({ ...prev, isMoreShareOptions: false }))}
           appendTo={() => document.body}
         >
-          <button className={cx('action-icon-bar')}>
-            <span className={cx('action-icon-span')}>
-              <ShareIcon className={cx('icon-bar')} />
+          <button className={cx('action-icon-bar', { light: theme === 'light', dark: theme === 'dark' })}>
+            <span className={cx('action-icon-span', { light: theme === 'light', dark: theme === 'dark' })}>
+              <ShareIcon />
             </span>
             <strong className={cx('action-count')}>{data.shares_count}</strong>
           </button>

@@ -22,4 +22,9 @@
     border-color: rgba(22, 24, 35, 0.2);
     background-color: rgb(255, 255, 255);
   }
+
+  &.dark {
+    background: none rgb(37, 37, 37);
+    color: rgba(255, 255, 255, 0.9);
+  }
 }

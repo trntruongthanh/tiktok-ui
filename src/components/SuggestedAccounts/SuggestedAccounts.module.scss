@@ -1,5 +1,9 @@
 .wrapper {
-  border-top: 1px solid #e3e3e4;
+  border-top: 1px solid rgba(22, 24, 35, 0.12);
+
+  &.dark {
+    border-top: 1px solid rgb(47, 47, 47);
+  }
 }
 
 .label {
@@ -7,6 +11,10 @@
   padding: 8px;
   font-weight: 600;
   color: var(--text-color);
+
+  &.dark {
+    color: rgba(255, 255, 255, 0.5);
+  }
 }
 
 .account-item {
@@ -35,6 +43,10 @@
   line-height: 1;
   font-size: 1.6rem;
   color: #161823;
+
+  &.dark {
+    color: white;
+  }
 }
 
 .check {

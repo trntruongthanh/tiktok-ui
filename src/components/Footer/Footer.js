@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import styles from './Footer.module.scss';
@@ -7,10 +7,13 @@ import { useState } from 'react';
 import Image from '../Image';
 import images from '~/assets/images';
 import { FooterIcon } from '../Icons';
+import { GlobalContext } from '~/Context/GlobalContext';
 
 const cx = classNames.bind(styles);
 
 function Footer({ tipLogo = images.tipLogo }) {
+  const { theme } = useContext(GlobalContext);
+
   const [visibleSection, setVisibleSection] = useState(null);
   const [isChannelsVisible, setIsChannelsVisible] = useState(false);
 
@@ -26,14 +29,24 @@ function Footer({ tipLogo = images.tipLogo }) {
     <div key={title} className={cx('footer-options')}>
       <h4
         onClick={() => toggleSection(title)}
-        className={cx('footer-header', { [styles.active]: visibleSection === title })}
+        className={cx('footer-header', {
+          light: theme === 'light',
+          dark: theme === 'dark',
+          [styles.active]: visibleSection === title,
+        })}
       >
         {title}
       </h4>
+
       {visibleSection === title && (
         <React.Fragment>
           {content.map((item, index) => (
-            <a key={`${title}-${index}`} href="/" target="blank">
+            <a
+              className={cx({ light: theme === 'light', dark: theme === 'dark' })}
+              key={`${title}-${index}`}
+              href="/"
+              target="blank"
+            >
               {item}
             </a>
           ))}
@@ -80,7 +93,14 @@ function Footer({ tipLogo = images.tipLogo }) {
         {footerSections.map((section) => renderFooterSection(section.title, section.content))}
       </div>
 
-      <div onClick={toggleChannels} className={cx('see-more', { [styles.hide]: isChannelsVisible })}>
+      <div
+        onClick={toggleChannels}
+        className={cx(
+          'see-more',
+          { light: theme === 'light', dark: theme === 'dark' },
+          { [styles.hide]: isChannelsVisible },
+        )}
+      >
         See more
         <FooterIcon className={cx('footer-icon')} />
       </div>
@@ -88,7 +108,10 @@ function Footer({ tipLogo = images.tipLogo }) {
       <div className={cx('footer-options')}>
         {isChannelsVisible && (
           <React.Fragment>
-            <h4 onClick={(e) => e.preventDefault()} className={cx('footer-header')}>
+            <h4
+              onClick={(e) => e.preventDefault()}
+              className={cx('footer-header', { light: theme === 'light', dark: theme === 'dark' })}
+            >
               Channels
             </h4>
             {[
@@ -101,7 +124,12 @@ function Footer({ tipLogo = images.tipLogo }) {
               'Relationship',
               'TikTok Style',
             ].map((item, index) => (
-              <a key={`channel-${index}`} href="/" target="blank">
+              <a
+                className={cx({ light: theme === 'light', dark: theme === 'dark' })}
+                key={`channel-${index}`}
+                href="/"
+                target="blank"
+              >
                 {item}
               </a>
             ))}
@@ -110,7 +138,9 @@ function Footer({ tipLogo = images.tipLogo }) {
       </div>
 
       <div className={cx('copyright-wrapper')}>
-        <span className={cx('footer-copyright')}>© 2024 TikTok</span>
+        <span className={cx('footer-copyright', { light: theme === 'light', dark: theme === 'dark' })}>
+          © 2024 TikTok
+        </span>
       </div>
     </div>
   );

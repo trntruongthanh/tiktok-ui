@@ -10,10 +10,15 @@ import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 
 import AccountPreview from './AccountPreview';
 import Image from '../Image';
+import { useContext } from 'react';
+import { GlobalContext } from '~/Context/GlobalContext';
 
 const cx = classNames.bind(styles);
 
 function AccountItem({ data }) {
+
+  const { theme } = useContext(GlobalContext);
+
   const renderPreview = (props) => {
     return (
       <div tabIndex="-1" {...props}>
@@ -37,7 +42,7 @@ function AccountItem({ data }) {
         <div className={cx('account-item')}>
           <Image className={cx('avatar')} src={data.avatar} alt={data.nickname} />
           <div className={cx('item-info')}>
-            <p className={cx('nickname')}>
+            <p className={cx('nickname' , { light: theme === 'light', dark: theme === 'dark' })}>
               <strong>{data.nickname}</strong>
               {data.tick && <FontAwesomeIcon className={cx('check')} icon={faCheckCircle} />}
             </p>

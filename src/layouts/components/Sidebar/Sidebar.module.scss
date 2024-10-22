@@ -1,15 +1,22 @@
 .wrapper {
   position: fixed;
+
   display: flex;
   align-items: stretch;
   flex-direction: column;
   box-sizing: border-box;
+
   width: 232px;
+  margin-left: -4px;
   padding: 20px 0px 26px 8px;
   height: 100vh;
 
   contain: content;
-  overflow-y: auto;
+
+  &.dark {
+    background-color: rgb(18, 18, 18);
+    color: rgb(255, 255, 255);
+  }
 }
 
 .user-avatar {
@@ -23,6 +30,11 @@
   -moz-border-radius: 50%;
   -ms-border-radius: 50%;
   -o-border-radius: 50%;
+
+  &.dark {
+    background-color: rgb(18, 18, 18);
+    color: rgb(255, 255, 255);
+  }
 }
 
 .icon-user-group {
@@ -30,4 +42,9 @@
   height: 32px;
   font-size: 24px;
   padding: 4px;
+
+  &.dark {
+    background-color: rgb(18, 18, 18);
+    color: rgb(255, 255, 255);
+  }
 }

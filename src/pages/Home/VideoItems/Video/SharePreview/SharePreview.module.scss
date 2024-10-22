@@ -38,6 +38,10 @@
 .preview-text {
   margin-left: 12px;
   color: rgba(22, 24, 35);
+
+  &.dark {
+    color: rgba(255, 255, 255, 0.9);
+  }
 }
 
 .more-share-option {
@@ -52,5 +56,9 @@
 
   &:hover {
     background: rgba(22, 24, 35, 0.03);
+  }
+
+  &.dark {
+    color: rgba(255, 255, 255, 0.9);
   }
 }

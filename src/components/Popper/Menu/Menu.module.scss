@@ -1,3 +1,11 @@
+// Variables
+:root {
+  --dark-background-color: rgb(49, 49, 49);
+  --dark-text-color: white;
+  --border-color: rgb(22, 24, 35, 0.12);
+  --hover-background-color: var(--background-color);
+}
+
 //menu wrapper
 .menu-list {
   width: 224px;
@@ -5,12 +13,18 @@
   .menu-item {
     display: flex;
     justify-content: flex-start;
+    align-items: center;
     margin-left: 0;
   }
 }
 
 .menu-popper {
   padding-bottom: 8px;
+
+  &.dark {
+    background-color: var(--dark-background-color);
+    color: var(--dark-text-color);
+  }
 }
 
 .menu-body {
@@ -19,6 +33,7 @@
 
 // Menu items
 .menu-item {
+  position: relative;
   width: 100%;
   padding: 11px 16px;
   line-height: 1.8rem;
@@ -31,12 +46,34 @@
   -o-border-radius: 0;
 
   &.separate {
-    border-top: 1px solid rgb(22, 24, 35, .12);
+    border-top: 1px solid var(--border-color);
+
+    &.dark {
+      border-top: 1px solid var(--dark-text-color);
+    }
   }
 
   &:hover {
-    background-color: var(--background-color);
+    background-color: var(--hover-background-color);
   }
+
+  &.dark {
+    background-color: var(--dark-background-color);
+    color: var(--dark-text-color);
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.04);
+    }
+  }
+}
+
+.menu-item .tick-icon {
+  position: absolute;
+  right: 12px; /* Đặt dấu tick ở bên phải */
+  top: 50%;
+  transform: translateY(-50%); /* Đặt dấu tick giữa theo chiều dọc */
+  width: 16px;
+  height: 16px;
 }
 
 // header
@@ -52,6 +89,10 @@
   height: 100%;
   background-color: transparent;
   cursor: pointer;
+
+  &.dark {
+    color: var(--dark-text-color);
+  }
 }
 
 .header-title {
